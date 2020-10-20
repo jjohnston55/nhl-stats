@@ -1,10 +1,16 @@
 import React from 'react';
+import Home from './components/pages/home';
+import Team from './components/pages/team';
+import Player from './components/pages/player';
 import './App.css';
 
-function App() {
+
+const App = () => {
 	return (
 		<>
-			<div>Hello World</div>
+			<Home />
+			<Team />
+			<Player />
 		</>
 	)
 }
