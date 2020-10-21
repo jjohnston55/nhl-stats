@@ -4,7 +4,7 @@ const Player = (props) => {
 
     return (
         <>
-            
+            <div>Player</div>
         </>
     )
 }

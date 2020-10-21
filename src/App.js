@@ -10,6 +10,7 @@ import 'antd/dist/antd.css';
 const App = () => {
 	const [content, setContent] = useState(<Home />);
 	const page = useSelector(state => state.view.page);
+	const data = useSelector(state => state.view.data);
 
 	useEffect(() => {
 		switch (page) {
@@ -17,10 +18,10 @@ const App = () => {
 				setContent(<Home />);
 				break;
 			case 'team':
-				setContent(<Team />);
+				setContent(<Team team={data}/>);
 				break;
 			case 'player':
-				setContent(<Player />);
+				setContent(<Player player={data}/>);
 				break;
 			default:
 				setContent(<Home />);
