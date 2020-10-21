@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { Row, Col, Button, Alert } from 'antd';
+import { useDispatch } from 'react-redux';
 import './index.css';
+
+import * as viewActions from '../../../actions/viewActions';
 
 import NHL from '../../../api';
 
 const Home = (props) => {
+    const dispatch = useDispatch();
+
     const api = new NHL();
     const [pacificTeams, setPacificTeams] = useState([]);
     const [centralTeams, setCentralTeams] = useState([]);
@@ -17,7 +22,7 @@ const Home = (props) => {
             const cTeams = [];
             const mTeams = [];
             const aTeams = [];
-            data.teams.forEach(team => {
+            data.forEach(team => {
                 switch (team.division.abbreviation) {
                     case 'P':
                         pTeams.push(team);
@@ -39,6 +44,11 @@ const Home = (props) => {
             setAtlanticTeams(aTeams);
         });
     }, []);
+
+    const handleTeam = (team) => {
+        console.log(team);
+        dispatch(viewActions.changeView('team', team));
+    }
 
     return (
         <>
@@ -71,7 +81,7 @@ const Home = (props) => {
                             return (
                                 <Row key={idx} gutter={[16, 16]}>
                                     <Col span={24}>
-                                        <Button onClick={() => console.log(team)} type='primary' size='large' block>{team.teamName}</Button>
+                                        <Button onClick={() => handleTeam(team)} type='primary' size='large' block>{team.teamName}</Button>
                                     </Col>
                                 </Row>
                             )
@@ -84,7 +94,7 @@ const Home = (props) => {
                             return (
                                 <Row key={idx} gutter={[16, 16]}>
                                     <Col span={24}>
-                                        <Button onClick={() => console.log(team)} type='primary' size='large' block>{team.teamName}</Button>
+                                        <Button onClick={() => handleTeam(team)} type='primary' size='large' block>{team.teamName}</Button>
                                     </Col>
                                 </Row>
                             )
@@ -97,7 +107,7 @@ const Home = (props) => {
                             return (
                                 <Row key={idx} gutter={[16, 16]}>
                                     <Col span={24}>
-                                        <Button onClick={() => console.log(team)} type='primary' size='large' block>{team.teamName}</Button>
+                                        <Button onClick={() => handleTeam(team)} type='primary' size='large' block>{team.teamName}</Button>
                                     </Col>
                                 </Row>
                             )
@@ -110,7 +120,7 @@ const Home = (props) => {
                             return (
                                 <Row key={idx} gutter={[16, 16]}>
                                     <Col span={24}>
-                                        <Button onClick={() => console.log(team)} type='primary' size='large' block>{team.teamName}</Button>
+                                        <Button onClick={() => handleTeam(team)} type='primary' size='large' block>{team.teamName}</Button>
                                     </Col>
                                 </Row>
                             )

@@ -11,13 +11,13 @@ const NHL = function(attrs) {
 
 NHL.prototype.GetTeams = function() {
     return axios.get(`${ENDPOINT}/teams`).then(response => {
-        return response.data;
+        return response.data.teams;
     }).catch(err => console.error(err));
 }
 
 NHL.prototype.GetTeamRoster = function(teamID) {
     return axios.get(`${ENDPOINT}/teams/${teamID}/roster`).then(response => {
-        return response.data;
+        return response.data.roster;
     }).catch(err => console.error(err));
 }
 
