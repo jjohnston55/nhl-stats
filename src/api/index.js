@@ -23,13 +23,13 @@ NHL.prototype.GetTeamRoster = function(teamID) {
 
 NHL.prototype.GetPlayer = function(playerID) {
     return axios.get(`${ENDPOINT}/people/${playerID}`).then(response => {
-        return response.data;
+        return response.data.people[0];
     }).catch(err => console.error(err));
 }
 
 NHL.prototype.GetPlayerStats = function(playerID, statType = 'statsSingleSeason') {
     return axios.get(`${ENDPOINT}/people/${playerID}/stats?stats=${statType}`).then(response => {
-        return response.data;
+        return response.data.stats[0].splits[0];
     }).catch(err => console.error(err));
 }
 
