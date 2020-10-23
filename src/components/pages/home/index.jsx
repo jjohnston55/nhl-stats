@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import { Row, Col, Button, Alert } from 'antd';
 import { useDispatch } from 'react-redux';
-import './index.css';
 
 import * as viewActions from '../../../actions/viewActions';
 
@@ -9,6 +9,7 @@ import NHL from '../../../api';
 
 const Home = (props) => {
     const dispatch = useDispatch();
+    const cancelToken = axios.CancelToken.source();
 
     const api = new NHL();
     const [pacificTeams, setPacificTeams] = useState([]);
@@ -17,7 +18,7 @@ const Home = (props) => {
     const [atlanticTeams, setAtlanticTeams] = useState([]);
     
     useEffect(() => {
-        api.GetTeams().then(data => {
+        api.GetTeams(cancelToken.token).then(data => {
             const pTeams = []
             const cTeams = [];
             const mTeams = [];
@@ -43,6 +44,9 @@ const Home = (props) => {
             setMetroTeams(mTeams);
             setAtlanticTeams(aTeams);
         });
+        return () => {
+            cancelToken.cancel()
+        }
     }, []);
 
     const handleTeam = (team) => {
@@ -81,7 +85,7 @@ const Home = (props) => {
                             return (
                                 <Row key={idx} gutter={[16, 16]}>
                                     <Col span={24}>
-                                        <Button onClick={() => handleTeam(team)} type='primary' size='large' block>{team.teamName}</Button>
+                                        <Button onClick={() => handleTeam(team)} type='primary' size='large' block>{team.name}</Button>
                                     </Col>
                                 </Row>
                             )
@@ -94,7 +98,7 @@ const Home = (props) => {
                             return (
                                 <Row key={idx} gutter={[16, 16]}>
                                     <Col span={24}>
-                                        <Button onClick={() => handleTeam(team)} type='primary' size='large' block>{team.teamName}</Button>
+                                        <Button onClick={() => handleTeam(team)} type='primary' size='large' block>{team.name}</Button>
                                     </Col>
                                 </Row>
                             )
@@ -107,7 +111,7 @@ const Home = (props) => {
                             return (
                                 <Row key={idx} gutter={[16, 16]}>
                                     <Col span={24}>
-                                        <Button onClick={() => handleTeam(team)} type='primary' size='large' block>{team.teamName}</Button>
+                                        <Button onClick={() => handleTeam(team)} type='primary' size='large' block>{team.name}</Button>
                                     </Col>
                                 </Row>
                             )
@@ -120,7 +124,7 @@ const Home = (props) => {
                             return (
                                 <Row key={idx} gutter={[16, 16]}>
                                     <Col span={24}>
-                                        <Button onClick={() => handleTeam(team)} type='primary' size='large' block>{team.teamName}</Button>
+                                        <Button onClick={() => handleTeam(team)} type='primary' size='large' block>{team.name}</Button>
                                     </Col>
                                 </Row>
                             )

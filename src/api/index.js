@@ -9,27 +9,35 @@ const NHL = function(attrs) {
     }
 };
 
-NHL.prototype.GetTeams = function() {
-    return axios.get(`${ENDPOINT}/teams`).then(response => {
+NHL.prototype.GetTeams = function(cancelToken) {
+    return axios.get(`${ENDPOINT}/teams`, {
+        cancelToken: cancelToken
+    }).then(response => {
         return response.data.teams;
     }).catch(err => console.error(err));
 }
 
-NHL.prototype.GetTeamRoster = function(teamID) {
-    return axios.get(`${ENDPOINT}/teams/${teamID}/roster`).then(response => {
+NHL.prototype.GetTeamRoster = function(teamID, cancelToken) {
+    return axios.get(`${ENDPOINT}/teams/${teamID}/roster`, {
+        cancelToken: cancelToken
+    }).then(response => {
         return response.data.roster;
     }).catch(err => console.error(err));
 }
 
-NHL.prototype.GetPlayer = function(playerID) {
-    return axios.get(`${ENDPOINT}/people/${playerID}`).then(response => {
+NHL.prototype.GetPlayer = function(playerID, cancelToken) {
+    return axios.get(`${ENDPOINT}/people/${playerID}`, {
+        cancelToken: cancelToken
+    }).then(response => {
         return response.data.people[0];
     }).catch(err => console.error(err));
 }
 
-NHL.prototype.GetPlayerStats = function(playerID, statType = 'statsSingleSeason') {
-    return axios.get(`${ENDPOINT}/people/${playerID}/stats?stats=${statType}`).then(response => {
-        return response.data.stats[0].splits[0];
+NHL.prototype.GetPlayerStats = function(playerID, cancelToken, statType = 'statsSingleSeason') {
+    return axios.get(`${ENDPOINT}/people/${playerID}/stats?stats=${statType}`, {
+        cancelToken: cancelToken
+    }).then(response => {
+        return response.data.stats[0];
     }).catch(err => console.error(err));
 }
 

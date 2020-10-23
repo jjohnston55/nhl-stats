@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { Row, Col, Alert, Button } from 'antd';
 
@@ -9,6 +10,7 @@ import NHL from '../../../api';
 const Team = (props) => {
     const dispatch = useDispatch();
     const team = props.team;
+    const cancelToken = axios.CancelToken.source();
 
     const time = new Date();
 
@@ -26,7 +28,7 @@ const Team = (props) => {
     const g = [];
 
     useEffect(() => {
-        api.GetTeamRoster(team.id).then(data => {
+        api.GetTeamRoster(team.id, cancelToken.token).then(data => {
             data.forEach(player => {
                 switch (player.position.code) {
                     case 'L':
@@ -44,6 +46,8 @@ const Team = (props) => {
                     case 'G':
                         g.push(player);
                         break;
+                    default:
+                        break;
                 }
             });
             setLeftWing(l);
@@ -52,11 +56,13 @@ const Team = (props) => {
             setDefence(d);
             setGoalies(g);
         });
+        return () => {
+            cancelToken.cancel()
+        }
     }, [team]);
 
     const handlePlayer = (player) => {
-        console.log(player);
-        dispatch(viewActions.changeView('player', player));
+        dispatch(viewActions.changeView('player', player.person.id));
     }
 
     return (
@@ -76,7 +82,7 @@ const Team = (props) => {
                 </Col>
                 <Col>
                     <h3>Website</h3>
-                    <h2><a href={team.officialSiteUrl} rel='noopenner noreferrer' target='_blank'>{team.officialSiteUrl}</a></h2>
+                    <h2><a href={team.officialSiteUrl} rel='noopener noreferrer' target='_blank'>{team.officialSiteUrl}</a></h2>
                 </Col>
                 <Col>
                     <h3>Arena</h3>
