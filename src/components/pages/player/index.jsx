@@ -84,8 +84,8 @@ const Player = (props) => {
                                 <Descriptions.Item label='Shots'>{ranks.rankShots} - {stats.shots}</Descriptions.Item>
                                 <Descriptions.Item label='Goals'>{ranks.rankGoals} - {stats.goals}</Descriptions.Item>
                                 <Descriptions.Item label='Assists'>{ranks.rankAssists} - {stats.assists}</Descriptions.Item>
-                                <Descriptions.Item label='PPG'>{ranks.rankPowerPlayGoals} - {stats.powerPlayGoals}</Descriptions.Item>
-                                <Descriptions.Item label='PPP'>{stats.powerPlayPoints}</Descriptions.Item>
+                                <Descriptions.Item label='Power Play Goals'>{ranks.rankPowerPlayGoals} - {stats.powerPlayGoals}</Descriptions.Item>
+                                <Descriptions.Item label='Power Play Points'>{stats.powerPlayPoints}</Descriptions.Item>
                                 <Descriptions.Item label='Faceoff %'>{stats.faceOffPct}</Descriptions.Item>
                             </Descriptions>
                         }

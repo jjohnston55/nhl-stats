@@ -39,10 +39,13 @@ const App = () => {
 	return (
 		<>
 			<div className='page'>
-				<Row gutter={[16, 16]}>
-					<Col>
-						<Button onClick={handleBack} type='primary' shape='round' icon={<LeftOutlined />}> Go Back</Button>
-					</Col>
+				<Row className='backButtonRow' gutter={[16, 16]}>
+					{
+						view.page !== 'home' &&
+						<Col>
+							<Button onClick={handleBack} type='primary' shape='round' icon={<LeftOutlined />}> Go Back</Button>
+						</Col>
+					}
 				</Row>
 				<Row className='content'>
 					<Col span={24}>
