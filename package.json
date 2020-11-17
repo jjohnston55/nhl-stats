@@ -1,6 +1,6 @@
 {
   "name": "nhl-stats",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "homepage": "https://jjohnston55.github.io/nhl-stats",
   "private": false,
   "dependencies": {
