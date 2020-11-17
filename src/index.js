@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
+import { BrowserView, MobileView } from 'react-device-detect';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
@@ -8,9 +9,16 @@ import store from './configureStore';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
+    <BrowserView viewClassName='landscape'>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </BrowserView>
+    <MobileView viewClassName='portrait'>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </MobileView>
   </React.StrictMode>,
   document.getElementById('root')
 );

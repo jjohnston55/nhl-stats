@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import { Col, Descriptions, Empty, Row } from 'antd';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { BrowserView, MobileView } from 'react-device-detect';
 
 import NHL from '../../../api';
 
@@ -43,56 +44,110 @@ const Player = (props) => {
 
     return (
         <>
-            <Row gutter={[16, 16]} justify='center'>
-                <Col>
-                    <Descriptions bordered title='Player' layout='vertical'>
-                        <Descriptions.Item label='Name'>{player.fullName}</Descriptions.Item>
-                        <Descriptions.Item label='Number'>{player.primaryNumber}</Descriptions.Item>
-                        <Descriptions.Item label='Team'>{team.name}</Descriptions.Item>
-                        <Descriptions.Item label='Nationality'>{player.nationality}</Descriptions.Item>
-                        <Descriptions.Item label='Province/State'>{player.birthStateProvince}</Descriptions.Item>
-                        <Descriptions.Item label='City'>{player.birthCity}</Descriptions.Item>
-                        <Descriptions.Item label='Birth Date'>{player.birthDate}</Descriptions.Item>
-                        <Descriptions.Item label='Age'>{player.currentAge}</Descriptions.Item>
-                        <Descriptions.Item label='Position'>{position.name}</Descriptions.Item>
-                        <Descriptions.Item label='Height'>{player.height}</Descriptions.Item>
-                        <Descriptions.Item label='Weight'>{player.weight}</Descriptions.Item>
-                        <Descriptions.Item label='Shoots'>{player.shootsCatches === 'L' ? 'Left' : 'Right'}</Descriptions.Item>
-                    </Descriptions>
-                </Col>
-                {
-                    Object.keys(stats).length > 0 && Object.keys(ranks).length > 0 ?
+            <BrowserView>
+                <Row gutter={[16, 16]} justify='center'>
                     <Col>
-                        {
-                            player.primaryPosition.code === 'G' ?
-                            <Descriptions bordered title='Stats' layout='vertical'>
-                                <Descriptions.Item label='Season'>{season.toString()}</Descriptions.Item>
-                                <Descriptions.Item label='Time On Ice'>{ranks.timeOnIce} - {stats.timeOnIce}</Descriptions.Item>
-                                <Descriptions.Item label='Games'>{ranks.games} - {stats.games}</Descriptions.Item>
-                                <Descriptions.Item label='Shots Against'>{ranks.shotsAgainst} - {stats.shotsAgainst}</Descriptions.Item>
-                                <Descriptions.Item label='Goals Against'>{ranks.goalsAgainst} - {stats.goalsAgainst}</Descriptions.Item>
-                                <Descriptions.Item label='Goals Against Average'>{ranks.goalsAgainstAverage} - {stats.goalAgainstAverage}</Descriptions.Item>
-                                <Descriptions.Item label='Shutouts'>{ranks.shutOuts} - {stats.shutouts}</Descriptions.Item>
-                                <Descriptions.Item label='Saves'>{ranks.saves} - {stats.saves}</Descriptions.Item>
-                                <Descriptions.Item label='Save Percentage'>{ranks.savePercentage} - {stats.savePercentage}</Descriptions.Item>
-                            </Descriptions>
-                            :
-                            <Descriptions bordered title='Stats' layout='vertical'>
-                                <Descriptions.Item label='Season'>{season.toString()}</Descriptions.Item>
-                                <Descriptions.Item label='Points'>{ranks.rankPoints} - {stats.points}</Descriptions.Item>
-                                <Descriptions.Item label='Shot %'>{ranks.rankShotPct} - {stats.shotPct}</Descriptions.Item>
-                                <Descriptions.Item label='Shots'>{ranks.rankShots} - {stats.shots}</Descriptions.Item>
-                                <Descriptions.Item label='Goals'>{ranks.rankGoals} - {stats.goals}</Descriptions.Item>
-                                <Descriptions.Item label='Assists'>{ranks.rankAssists} - {stats.assists}</Descriptions.Item>
-                                <Descriptions.Item label='Power Play Goals'>{ranks.rankPowerPlayGoals} - {stats.powerPlayGoals}</Descriptions.Item>
-                                <Descriptions.Item label='Power Play Points'>{stats.powerPlayPoints}</Descriptions.Item>
-                                <Descriptions.Item label='Faceoff %'>{stats.faceOffPct}</Descriptions.Item>
-                            </Descriptions>
-                        }
+                        <Descriptions bordered title='Player' layout='vertical'>
+                            <Descriptions.Item label='Name'>{player.fullName}</Descriptions.Item>
+                            <Descriptions.Item label='Number'>{player.primaryNumber}</Descriptions.Item>
+                            <Descriptions.Item label='Team'>{team.name}</Descriptions.Item>
+                            <Descriptions.Item label='Nationality'>{player.nationality}</Descriptions.Item>
+                            <Descriptions.Item label='Province/State'>{player.birthStateProvince}</Descriptions.Item>
+                            <Descriptions.Item label='City'>{player.birthCity}</Descriptions.Item>
+                            <Descriptions.Item label='Birth Date'>{player.birthDate}</Descriptions.Item>
+                            <Descriptions.Item label='Age'>{player.currentAge}</Descriptions.Item>
+                            <Descriptions.Item label='Position'>{position.name}</Descriptions.Item>
+                            <Descriptions.Item label='Height'>{player.height}</Descriptions.Item>
+                            <Descriptions.Item label='Weight'>{player.weight}</Descriptions.Item>
+                            <Descriptions.Item label='Shoots'>{player.shootsCatches === 'L' ? 'Left' : 'Right'}</Descriptions.Item>
+                        </Descriptions>
                     </Col>
-                    : <Col span={10}><Empty /></Col>
-                }
-            </Row>
+                    {
+                        Object.keys(stats).length > 0 && Object.keys(ranks).length > 0 ?
+                        <Col>
+                            {
+                                player.primaryPosition.code === 'G' ?
+                                <Descriptions bordered title='Stats' layout='vertical'>
+                                    <Descriptions.Item label='Season'>{season.toString()}</Descriptions.Item>
+                                    <Descriptions.Item label='Time On Ice'>{ranks.timeOnIce} - {stats.timeOnIce}</Descriptions.Item>
+                                    <Descriptions.Item label='Games'>{ranks.games} - {stats.games}</Descriptions.Item>
+                                    <Descriptions.Item label='Shots Against'>{ranks.shotsAgainst} - {stats.shotsAgainst}</Descriptions.Item>
+                                    <Descriptions.Item label='Goals Against'>{ranks.goalsAgainst} - {stats.goalsAgainst}</Descriptions.Item>
+                                    <Descriptions.Item label='Goals Against Average'>{ranks.goalsAgainstAverage} - {stats.goalAgainstAverage}</Descriptions.Item>
+                                    <Descriptions.Item label='Shutouts'>{ranks.shutOuts} - {stats.shutouts}</Descriptions.Item>
+                                    <Descriptions.Item label='Saves'>{ranks.saves} - {stats.saves}</Descriptions.Item>
+                                    <Descriptions.Item label='Save Percentage'>{ranks.savePercentage} - {stats.savePercentage}</Descriptions.Item>
+                                </Descriptions>
+                                :
+                                <Descriptions bordered title='Stats' layout='vertical'>
+                                    <Descriptions.Item label='Season'>{season.toString()}</Descriptions.Item>
+                                    <Descriptions.Item label='Points'>{ranks.rankPoints} - {stats.points}</Descriptions.Item>
+                                    <Descriptions.Item label='Shot %'>{ranks.rankShotPct} - {stats.shotPct}</Descriptions.Item>
+                                    <Descriptions.Item label='Shots'>{ranks.rankShots} - {stats.shots}</Descriptions.Item>
+                                    <Descriptions.Item label='Goals'>{ranks.rankGoals} - {stats.goals}</Descriptions.Item>
+                                    <Descriptions.Item label='Assists'>{ranks.rankAssists} - {stats.assists}</Descriptions.Item>
+                                    <Descriptions.Item label='Power Play Goals'>{ranks.rankPowerPlayGoals} - {stats.powerPlayGoals}</Descriptions.Item>
+                                    <Descriptions.Item label='Power Play Points'>{stats.powerPlayPoints}</Descriptions.Item>
+                                    <Descriptions.Item label='Faceoff %'>{stats.faceOffPct}</Descriptions.Item>
+                                </Descriptions>
+                            }
+                        </Col>
+                        : <Col span={10}><Empty /></Col>
+                    }
+                </Row>
+            </BrowserView>
+            <MobileView>
+            <Row gutter={[4,4]} justify='center'>
+                    <Col span={24}>
+                        <Descriptions bordered title='Player' layout='vertical'>
+                            <Descriptions.Item label='Name'>{player.fullName}</Descriptions.Item>
+                            <Descriptions.Item label='Number'>{player.primaryNumber}</Descriptions.Item>
+                            <Descriptions.Item label='Team'>{team.name}</Descriptions.Item>
+                            <Descriptions.Item label='Nationality'>{player.nationality}</Descriptions.Item>
+                            <Descriptions.Item label='Province/State'>{player.birthStateProvince}</Descriptions.Item>
+                            <Descriptions.Item label='City'>{player.birthCity}</Descriptions.Item>
+                            <Descriptions.Item label='Birth Date'>{player.birthDate}</Descriptions.Item>
+                            <Descriptions.Item label='Age'>{player.currentAge}</Descriptions.Item>
+                            <Descriptions.Item label='Position'>{position.name}</Descriptions.Item>
+                            <Descriptions.Item label='Height'>{player.height}</Descriptions.Item>
+                            <Descriptions.Item label='Weight'>{player.weight}</Descriptions.Item>
+                            <Descriptions.Item label='Shoots'>{player.shootsCatches === 'L' ? 'Left' : 'Right'}</Descriptions.Item>
+                        </Descriptions>
+                    </Col>
+                    {
+                        Object.keys(stats).length > 0 && Object.keys(ranks).length > 0 ?
+                        <Col span={24}>
+                            {
+                                player.primaryPosition.code === 'G' ?
+                                <Descriptions bordered title='Stats' layout='vertical'>
+                                    <Descriptions.Item label='Season'>{season.toString()}</Descriptions.Item>
+                                    <Descriptions.Item label='Time On Ice'>{ranks.timeOnIce} - {stats.timeOnIce}</Descriptions.Item>
+                                    <Descriptions.Item label='Games'>{ranks.games} - {stats.games}</Descriptions.Item>
+                                    <Descriptions.Item label='Shots Against'>{ranks.shotsAgainst} - {stats.shotsAgainst}</Descriptions.Item>
+                                    <Descriptions.Item label='Goals Against'>{ranks.goalsAgainst} - {stats.goalsAgainst}</Descriptions.Item>
+                                    <Descriptions.Item label='Goals Against Average'>{ranks.goalsAgainstAverage} - {stats.goalAgainstAverage}</Descriptions.Item>
+                                    <Descriptions.Item label='Shutouts'>{ranks.shutOuts} - {stats.shutouts}</Descriptions.Item>
+                                    <Descriptions.Item label='Saves'>{ranks.saves} - {stats.saves}</Descriptions.Item>
+                                    <Descriptions.Item label='Save Percentage'>{ranks.savePercentage} - {stats.savePercentage}</Descriptions.Item>
+                                </Descriptions>
+                                :
+                                <Descriptions bordered title='Stats' layout='vertical'>
+                                    <Descriptions.Item label='Season'>{season.toString()}</Descriptions.Item>
+                                    <Descriptions.Item label='Points'>{ranks.rankPoints} - {stats.points}</Descriptions.Item>
+                                    <Descriptions.Item label='Shot %'>{ranks.rankShotPct} - {stats.shotPct}</Descriptions.Item>
+                                    <Descriptions.Item label='Shots'>{ranks.rankShots} - {stats.shots}</Descriptions.Item>
+                                    <Descriptions.Item label='Goals'>{ranks.rankGoals} - {stats.goals}</Descriptions.Item>
+                                    <Descriptions.Item label='Assists'>{ranks.rankAssists} - {stats.assists}</Descriptions.Item>
+                                    <Descriptions.Item label='Power Play Goals'>{ranks.rankPowerPlayGoals} - {stats.powerPlayGoals}</Descriptions.Item>
+                                    <Descriptions.Item label='Power Play Points'>{stats.powerPlayPoints}</Descriptions.Item>
+                                    <Descriptions.Item label='Faceoff %'>{stats.faceOffPct}</Descriptions.Item>
+                                </Descriptions>
+                            }
+                        </Col>
+                        : <Col span={24}><Empty /></Col>
+                    }
+                </Row>
+            </MobileView>
         </>
     )
 }

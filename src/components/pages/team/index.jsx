@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { useDispatch } from 'react-redux';
 import { Button, Col, Collapse, Row } from 'antd';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { BrowserView, MobileView } from 'react-device-detect';
+import { useDispatch } from 'react-redux';
 
 import * as viewActions from '../../../actions/viewActions';
 
@@ -75,135 +76,260 @@ const Team = (props) => {
 
     return (
         <>
-            <Row justify='center' gutter={[16, 16]}>
-                <Col>
-                    <h3>Location</h3>
-                    <h2>{team.locationName}</h2>
-                </Col>
-                <Col>
-                    <h3>Team</h3>
-                    <h2>{team.teamName}</h2>
-                </Col>
-                <Col>
-                    <h3>First Year of Play</h3>
-                    <h2>{team.firstYearOfPlay}</h2>
-                </Col>
-                <Col>
-                    <h3>Website</h3>
-                    <h2><a href={team.officialSiteUrl} rel='noopener noreferrer' target='_blank'>{team.officialSiteUrl}</a></h2>
-                </Col>
-                <Col>
-                    <h3>Arena</h3>
-                    <h2>{team.venue.name}</h2>
-                </Col>
-                <Col>
-                    <h3>Current Time</h3>
-                    <h2>{time.toLocaleTimeString('en-US', { timeZone: team.venue.timeZone.id})}</h2>
-                </Col>
-                <Col>
-                    <h3>Games Played</h3>
-                    <h2>{teamStats.gamesPlayed}</h2>
-                </Col>
-            </Row>
-            <Row justify='space-between'>
-                <Col span={12}>
-                    <Collapse accordion>
-                        <Collapse.Panel className='centerText' header='Left Wing' key='1' >
-                            <Row justify='center' gutter={[16, 16]}>
-                            {
-                                leftWing.map((player, idx) => {
-                                    return (
-                                        <Col key={idx} span={8}>
-                                            <Button onClick={() => handlePlayer(player)}  block>{player.person.fullName}</Button>
-                                        </Col>
-                                    )
-                                })
-                            }
-                            </Row>
-                        </Collapse.Panel>
-                        <Collapse.Panel className='centerText' header='Center' key='2'>
-                            <Row justify='center' gutter={[16, 16]}>
-                            {
-                                centers.map((player, idx) => {
-                                    return (
-                                        <Col key={idx} span={8}>
-                                            <Button onClick={() => handlePlayer(player)} block>{player.person.fullName}</Button>
-                                        </Col>
-                                    )
-                                })
-                            }
-                            </Row>
-                        </Collapse.Panel>
-                        <Collapse.Panel className='centerText' header='Right Wing' key='3'>
-                            <Row justify='center' gutter={[16, 16]}>
-                            {
-                                rightWings.map((player, idx) => {
-                                    return (
-                                        <Col key={idx} span={8}>
-                                            <Button onClick={() => handlePlayer(player)} block>{player.person.fullName}</Button>
-                                        </Col>
-                                    )
-                                })
-                            }
-                            </Row>
-                        </Collapse.Panel>
-                        <Collapse.Panel className='centerText' header='Defenseman' key='4'>
-                            <Row justify='center' gutter={[16, 16]}>
-                            {
-                                defence.map((player, idx) => {
-                                    return (
-                                        <Col key={idx} span={8}>
-                                            <Button onClick={() => handlePlayer(player)} block>{player.person.fullName}</Button>
-                                        </Col>
-                                    )
-                                })
-                            }
-                            </Row>
-                        </Collapse.Panel>
-                        <Collapse.Panel className='centerText' header='Goalie' key='5'>
-                            <Row justify='center' gutter={[16, 16]}>
-                            {
-                                goalies.map((player, idx) => {
-                                    return (
-                                        <Col key={idx} span={8}>
-                                            <Button onClick={() => handlePlayer(player)} block>{player.person.fullName}</Button>
-                                        </Col>
-                                    )
-                                })
-                            }
-                            </Row>
-                        </Collapse.Panel>
-                    </Collapse>
-                </Col>
-                <Col span={11}>
-                    <Row gutter={[16, 16]} justify='space-around'>
-                        <Col>
-                            <h3>Wins</h3>
-                            <h2>{teamRanks.wins} - {teamStats.wins}</h2>
-                        </Col>
-                        <Col>
-                            <h3>Losses</h3>
-                            <h2>{teamRanks.losses} - {teamStats.losses}</h2>
-                        </Col>
-                        <Col>
-                            <h3>Points</h3>
-                            <h2>{teamRanks.pts} - {teamStats.pts}</h2>
-                        </Col>
-                        <Col>
-                            <h3>Faceoff Wins %</h3>
-                            <h2>{teamRanks.faceOffWinPercentage} - {teamStats.faceOffWinPercentage}</h2>
-                        </Col>
-                        <Col>
-                            <h3>Shots Allowed</h3>
-                            <h2>{teamRanks.shotsAllowed} - {teamStats.shotsAllowed}</h2>
-                        </Col>
-                        <Col>
-                            <h3>Shots Per Game</h3>
-                            <h2>{teamRanks.shotsPerGame} - {teamStats.shotsPerGame}</h2>
-                        </Col>
-                    </Row>
-                </Col>
-            </Row>
+            <BrowserView>
+                <Row justify='center' gutter={[16, 16]}>
+                    <Col>
+                        <h3>Location</h3>
+                        <h2>{team.locationName}</h2>
+                    </Col>
+                    <Col>
+                        <h3>Team</h3>
+                        <h2>{team.teamName}</h2>
+                    </Col>
+                    <Col>
+                        <h3>First Year of Play</h3>
+                        <h2>{team.firstYearOfPlay}</h2>
+                    </Col>
+                    <Col>
+                        <h3>Website</h3>
+                        <h2><a href={team.officialSiteUrl} rel='noopener noreferrer' target='_blank'>{team.officialSiteUrl}</a></h2>
+                    </Col>
+                    <Col>
+                        <h3>Arena</h3>
+                        <h2>{team.venue.name}</h2>
+                    </Col>
+                    <Col>
+                        <h3>Current Time</h3>
+                        <h2>{time.toLocaleTimeString('en-US', { timeZone: team.venue.timeZone.id})}</h2>
+                    </Col>
+                    <Col>
+                        <h3>Games Played</h3>
+                        <h2>{teamStats.gamesPlayed}</h2>
+                    </Col>
+                </Row>
+                <Row justify='space-between'>
+                    <Col span={12}>
+                        <Collapse accordion>
+                            <Collapse.Panel className='centerText' header='Left Wing' key='1' >
+                                <Row justify='center' gutter={[16, 16]}>
+                                {
+                                    leftWing.map((player, idx) => {
+                                        return (
+                                            <Col key={idx} span={8}>
+                                                <Button onClick={() => handlePlayer(player)}  block>{player.person.fullName}</Button>
+                                            </Col>
+                                        )
+                                    })
+                                }
+                                </Row>
+                            </Collapse.Panel>
+                            <Collapse.Panel className='centerText' header='Center' key='2'>
+                                <Row justify='center' gutter={[16, 16]}>
+                                {
+                                    centers.map((player, idx) => {
+                                        return (
+                                            <Col key={idx} span={8}>
+                                                <Button onClick={() => handlePlayer(player)} block>{player.person.fullName}</Button>
+                                            </Col>
+                                        )
+                                    })
+                                }
+                                </Row>
+                            </Collapse.Panel>
+                            <Collapse.Panel className='centerText' header='Right Wing' key='3'>
+                                <Row justify='center' gutter={[16, 16]}>
+                                {
+                                    rightWings.map((player, idx) => {
+                                        return (
+                                            <Col key={idx} span={8}>
+                                                <Button onClick={() => handlePlayer(player)} block>{player.person.fullName}</Button>
+                                            </Col>
+                                        )
+                                    })
+                                }
+                                </Row>
+                            </Collapse.Panel>
+                            <Collapse.Panel className='centerText' header='Defenseman' key='4'>
+                                <Row justify='center' gutter={[16, 16]}>
+                                {
+                                    defence.map((player, idx) => {
+                                        return (
+                                            <Col key={idx} span={8}>
+                                                <Button onClick={() => handlePlayer(player)} block>{player.person.fullName}</Button>
+                                            </Col>
+                                        )
+                                    })
+                                }
+                                </Row>
+                            </Collapse.Panel>
+                            <Collapse.Panel className='centerText' header='Goalie' key='5'>
+                                <Row justify='center' gutter={[16, 16]}>
+                                {
+                                    goalies.map((player, idx) => {
+                                        return (
+                                            <Col key={idx} span={8}>
+                                                <Button onClick={() => handlePlayer(player)} block>{player.person.fullName}</Button>
+                                            </Col>
+                                        )
+                                    })
+                                }
+                                </Row>
+                            </Collapse.Panel>
+                        </Collapse>
+                    </Col>
+                    <Col span={11}>
+                        <Row gutter={[16, 16]} justify='space-around'>
+                            <Col>
+                                <h3>Wins</h3>
+                                <h2>{teamRanks.wins} - {teamStats.wins}</h2>
+                            </Col>
+                            <Col>
+                                <h3>Losses</h3>
+                                <h2>{teamRanks.losses} - {teamStats.losses}</h2>
+                            </Col>
+                            <Col>
+                                <h3>Points</h3>
+                                <h2>{teamRanks.pts} - {teamStats.pts}</h2>
+                            </Col>
+                            <Col>
+                                <h3>Faceoff Wins %</h3>
+                                <h2>{teamRanks.faceOffWinPercentage} - {teamStats.faceOffWinPercentage}</h2>
+                            </Col>
+                            <Col>
+                                <h3>Shots Allowed</h3>
+                                <h2>{teamRanks.shotsAllowed} - {teamStats.shotsAllowed}</h2>
+                            </Col>
+                            <Col>
+                                <h3>Shots Per Game</h3>
+                                <h2>{teamRanks.shotsPerGame} - {teamStats.shotsPerGame}</h2>
+                            </Col>
+                        </Row>
+                    </Col>
+                </Row>
+            </BrowserView>
+            <MobileView>
+            <Row justify='space-around' gutter={[4,4]}>
+                    <Col>
+                        <h3>Team</h3>
+                        <h2>{team.name}</h2>
+                    </Col>
+                    <Col>
+                        <h3>First Year of Play</h3>
+                        <h2>{team.firstYearOfPlay}</h2>
+                    </Col>
+                    <Col>
+                        <h3>Website</h3>
+                        <h2><a href={team.officialSiteUrl} rel='noopener noreferrer' target='_blank'>{team.officialSiteUrl}</a></h2>
+                    </Col>
+                    <Col>
+                        <h3>Arena</h3>
+                        <h2>{team.venue.name}</h2>
+                    </Col>
+                    <Col>
+                        <h3>Games Played</h3>
+                        <h2>{teamStats.gamesPlayed}</h2>
+                    </Col>
+                </Row>
+                <Row justify='space-between'>
+                    <Col span={24}>
+                        <Collapse accordion>
+                            <Collapse.Panel className='centerText' header='Left Wing' key='1' >
+                                <Row justify='center' gutter={[4,4]}>
+                                {
+                                    leftWing.map((player, idx) => {
+                                        return (
+                                            <Col key={idx} span={12}>
+                                                <Button onClick={() => handlePlayer(player)}  block>{player.person.fullName}</Button>
+                                            </Col>
+                                        )
+                                    })
+                                }
+                                </Row>
+                            </Collapse.Panel>
+                            <Collapse.Panel className='centerText' header='Center' key='2'>
+                                <Row justify='center' gutter={[4,4]}>
+                                {
+                                    centers.map((player, idx) => {
+                                        return (
+                                            <Col key={idx} span={12}>
+                                                <Button onClick={() => handlePlayer(player)} block>{player.person.fullName}</Button>
+                                            </Col>
+                                        )
+                                    })
+                                }
+                                </Row>
+                            </Collapse.Panel>
+                            <Collapse.Panel className='centerText' header='Right Wing' key='3'>
+                                <Row justify='center' gutter={[4,4]}>
+                                {
+                                    rightWings.map((player, idx) => {
+                                        return (
+                                            <Col key={idx} span={12}>
+                                                <Button onClick={() => handlePlayer(player)} block>{player.person.fullName}</Button>
+                                            </Col>
+                                        )
+                                    })
+                                }
+                                </Row>
+                            </Collapse.Panel>
+                            <Collapse.Panel className='centerText' header='Defenseman' key='4'>
+                                <Row justify='center' gutter={[4,4]}>
+                                {
+                                    defence.map((player, idx) => {
+                                        return (
+                                            <Col key={idx} span={12}>
+                                                <Button onClick={() => handlePlayer(player)} block>{player.person.fullName}</Button>
+                                            </Col>
+                                        )
+                                    })
+                                }
+                                </Row>
+                            </Collapse.Panel>
+                            <Collapse.Panel className='centerText' header='Goalie' key='5'>
+                                <Row justify='center' gutter={[4,4]}>
+                                {
+                                    goalies.map((player, idx) => {
+                                        return (
+                                            <Col key={idx} span={12}>
+                                                <Button onClick={() => handlePlayer(player)} block>{player.person.fullName}</Button>
+                                            </Col>
+                                        )
+                                    })
+                                }
+                                </Row>
+                            </Collapse.Panel>
+                        </Collapse>
+                    </Col>
+                    <Col span={24}>
+                        <Row gutter={[4,4]} justify='space-around'>
+                            <Col>
+                                <h3>Wins</h3>
+                                <h2>{teamRanks.wins} - {teamStats.wins}</h2>
+                            </Col>
+                            <Col>
+                                <h3>Losses</h3>
+                                <h2>{teamRanks.losses} - {teamStats.losses}</h2>
+                            </Col>
+                            <Col>
+                                <h3>Points</h3>
+                                <h2>{teamRanks.pts} - {teamStats.pts}</h2>
+                            </Col>
+                            <Col>
+                                <h3>Faceoff Wins %</h3>
+                                <h2>{teamRanks.faceOffWinPercentage} - {teamStats.faceOffWinPercentage}</h2>
+                            </Col>
+                            <Col>
+                                <h3>Shots Allowed</h3>
+                                <h2>{teamRanks.shotsAllowed} - {teamStats.shotsAllowed}</h2>
+                            </Col>
+                            <Col>
+                                <h3>Shots Per Game</h3>
+                                <h2>{teamRanks.shotsPerGame} - {teamStats.shotsPerGame}</h2>
+                            </Col>
+                        </Row>
+                    </Col>
+                </Row>
+            </MobileView>
         </>
     )
 }

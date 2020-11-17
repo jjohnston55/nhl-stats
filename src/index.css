@@ -5,8 +5,17 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.landscape {
   background: url("ice.svg") no-repeat fixed center;
   background-size: contain;
+}
+
+.portrait {
+  background: url("ice-90.svg") no-repeat fixed center;
+  background-size: contain;
+  min-height: 100vh;
 }
 
 code {

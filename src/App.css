@@ -4,6 +4,11 @@
     background-color: rgba(255, 255, 255, 0.8) ;
 }
 
+.page-mobile {
+    min-height: 100vh;
+    background-color: rgba(219, 219, 219, 0.8);
+}
+
 .backButtonRow {
     height: 48px;
 }
@@ -13,6 +18,10 @@
     border-radius: 5px;
     padding: 50px;
     background-color: rgba(164, 189, 199, 0.5);
+}
+
+.content-mobile > div {
+    margin: 0 auto;
 }
 
 .centerText {

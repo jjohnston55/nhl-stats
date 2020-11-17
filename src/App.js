@@ -11,6 +11,7 @@ import Team from './components/pages/team';
 import Player from './components/pages/player';
 
 import * as viewActions from './actions/viewActions';
+import { BrowserView, MobileView } from 'react-device-detect';
 
 const App = () => {
 	const [content, setContent] = useState(<Home />);
@@ -38,7 +39,7 @@ const App = () => {
 
 	return (
 		<>
-			<div className='page'>
+			<BrowserView viewClassName='page'>
 				<Row className='backButtonRow' gutter={[16, 16]}>
 					{
 						view.page !== 'home' &&
@@ -52,7 +53,22 @@ const App = () => {
 						{content}
 					</Col>
 				</Row>
-			</div>
+			</BrowserView>
+			<MobileView viewClassName='page-mobile'>
+				<Row className='backButtonRow' gutter={[4,4]}>
+					{
+						view.page !== 'home' &&
+						<Col>
+							<Button onClick={handleBack} type='primary' shape='round' icon={<LeftOutlined />}> Go Back</Button>
+						</Col>
+					}
+				</Row>
+				<Row className='content-mobile'>
+					<Col span={23}>
+						{content}
+					</Col>
+				</Row>
+			</MobileView>
 		</>
 	)
 }
