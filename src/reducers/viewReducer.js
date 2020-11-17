@@ -15,7 +15,7 @@ const viewReducer = (state = initialState, action) => {
     switch (action.type) {
         case actions.BACK_VIEW:
             if (state.history.length > 1) {
-                const removedPage = state.history.pop();
+                state.history.pop();
                 return { ...state, page: state.history[state.history.length - 1].page, data: state.history[state.history.length - 1].data  };
             } else {
                 return state;

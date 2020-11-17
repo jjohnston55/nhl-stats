@@ -37,6 +37,8 @@ const Home = (props) => {
                     case 'A':
                         aTeams.push(team);
                         break;
+                    default:
+                        break;
                 }
             });
             setPacificTeams(pTeams);

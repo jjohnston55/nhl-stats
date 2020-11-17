@@ -44,7 +44,7 @@ const Player = (props) => {
     return (
         <>
             <Row gutter={[16, 16]} justify='center'>
-                <Col span={10}>
+                <Col>
                     <Descriptions bordered title='Player' layout='vertical'>
                         <Descriptions.Item label='Name'>{player.fullName}</Descriptions.Item>
                         <Descriptions.Item label='Number'>{player.primaryNumber}</Descriptions.Item>
@@ -62,9 +62,9 @@ const Player = (props) => {
                 </Col>
                 {
                     Object.keys(stats).length > 0 && Object.keys(ranks).length > 0 ?
-                    <Col span={10}>
+                    <Col>
                         {
-                            player.primaryPosition.code == 'G' ?
+                            player.primaryPosition.code === 'G' ?
                             <Descriptions bordered title='Stats' layout='vertical'>
                                 <Descriptions.Item label='Season'>{season.toString()}</Descriptions.Item>
                                 <Descriptions.Item label='Time On Ice'>{ranks.timeOnIce} - {stats.timeOnIce}</Descriptions.Item>
