@@ -17,6 +17,14 @@ NHL.prototype.GetTeams = function(cancelToken) {
     }).catch(err => console.error(err));
 }
 
+NHL.prototype.GetTeamStats = function(teamID, cancelToken) {
+    return axios.get(`${ENDPOINT}/teams/${teamID}/stats`, {
+        cancelToken: cancelToken
+    }).then(response => {
+        return response.data.stats;
+    }).catch(err => console.error(err));
+}
+
 NHL.prototype.GetTeamRoster = function(teamID, cancelToken) {
     return axios.get(`${ENDPOINT}/teams/${teamID}/roster`, {
         cancelToken: cancelToken

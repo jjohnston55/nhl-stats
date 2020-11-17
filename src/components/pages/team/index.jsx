@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import { Row, Col, Alert, Button } from 'antd';
+import { Button, Col, Collapse, Row } from 'antd';
 
 import * as viewActions from '../../../actions/viewActions';
 
@@ -15,6 +15,8 @@ const Team = (props) => {
     const time = new Date();
 
     const api = new NHL();
+    const [teamStats, setTeamStats] = useState({});
+    const [teamRanks, setTeamRanks] = useState({});
     const [leftWing, setLeftWing] = useState([]);
     const [centers, setCenters] = useState([]);
     const [rightWings, setRightWings] = useState([]);
@@ -56,8 +58,14 @@ const Team = (props) => {
             setDefence(d);
             setGoalies(g);
         });
+        api.GetTeamStats(team.id, cancelToken.token).then(data => {
+            console.log(data[0].splits[0].stat);
+            setTeamStats(data[0].splits[0].stat);
+            console.log(data[1].splits[0].stat);
+            setTeamRanks(data[1].splits[0].stat);
+        });
         return () => {
-            cancelToken.cancel()
+            cancelToken.cancel();
         }
     }, [team]);
 
@@ -69,7 +77,7 @@ const Team = (props) => {
         <>
             <Row justify='center' gutter={[16, 16]}>
                 <Col>
-                    <h3>City</h3>
+                    <h3>Location</h3>
                     <h2>{team.locationName}</h2>
                 </Col>
                 <Col>
@@ -92,78 +100,107 @@ const Team = (props) => {
                     <h3>Current Time</h3>
                     <h2>{time.toLocaleTimeString('en-US', { timeZone: team.venue.timeZone.id})}</h2>
                 </Col>
-            </Row>
-            <Row justify='space-around'>
-                <Col span={6}>
-                    <Alert className='centerText' message='Left Wing' type='info' />
-                    <Row justify='center' gutter={[16, 16]}>
-                    {
-                        leftWing.map((player, idx) => {
-                            return (
-                                <Col key={idx} span={12}>
-                                    <Button onClick={() => handlePlayer(player)}  block>{player.person.fullName}</Button>
-                                </Col>
-                            )
-                        })
-                    }
-                    </Row>
-                </Col>
-                <Col span={6}>
-                    <Alert className='centerText' message='Center' type='info' />
-                    <Row justify='center' gutter={[16, 16]}>
-                    {
-                        centers.map((player, idx) => {
-                            return (
-                                <Col key={idx} span={12}>
-                                    <Button onClick={() => handlePlayer(player)} block>{player.person.fullName}</Button>
-                                </Col>
-                            )
-                        })
-                    }
-                    </Row>
-                </Col>
-                <Col span={6}>
-                    <Alert className='centerText' message='Right Wing' type='info' />
-                    <Row justify='center' gutter={[16, 16]}>
-                    {
-                        rightWings.map((player, idx) => {
-                            return (
-                                <Col key={idx} span={12}>
-                                    <Button onClick={() => handlePlayer(player)} block>{player.person.fullName}</Button>
-                                </Col>
-                            )
-                        })
-                    }
-                    </Row>
+                <Col>
+                    <h3>Games Played</h3>
+                    <h2>{teamStats.gamesPlayed}</h2>
                 </Col>
             </Row>
-            <Row justify='space-around'>
-                <Col span={6}>
-                    <Alert className='centerText' message='Defenseman' type='info' />
-                    <Row justify='center' gutter={[16, 16]}>
-                    {
-                        defence.map((player, idx) => {
-                            return (
-                                <Col key={idx} span={12}>
-                                    <Button onClick={() => handlePlayer(player)} block>{player.person.fullName}</Button>
-                                </Col>
-                            )
-                        })
-                    }
-                    </Row>
+            <Row justify='space-between'>
+                <Col span={12}>
+                    <Collapse accordion>
+                        <Collapse.Panel className='centerText' header='Left Wing' key='1' >
+                            <Row justify='center' gutter={[16, 16]}>
+                            {
+                                leftWing.map((player, idx) => {
+                                    return (
+                                        <Col key={idx} span={8}>
+                                            <Button onClick={() => handlePlayer(player)}  block>{player.person.fullName}</Button>
+                                        </Col>
+                                    )
+                                })
+                            }
+                            </Row>
+                        </Collapse.Panel>
+                        <Collapse.Panel className='centerText' header='Center' key='2'>
+                            <Row justify='center' gutter={[16, 16]}>
+                            {
+                                centers.map((player, idx) => {
+                                    return (
+                                        <Col key={idx} span={8}>
+                                            <Button onClick={() => handlePlayer(player)} block>{player.person.fullName}</Button>
+                                        </Col>
+                                    )
+                                })
+                            }
+                            </Row>
+                        </Collapse.Panel>
+                        <Collapse.Panel className='centerText' header='Right Wing' key='3'>
+                            <Row justify='center' gutter={[16, 16]}>
+                            {
+                                rightWings.map((player, idx) => {
+                                    return (
+                                        <Col key={idx} span={8}>
+                                            <Button onClick={() => handlePlayer(player)} block>{player.person.fullName}</Button>
+                                        </Col>
+                                    )
+                                })
+                            }
+                            </Row>
+                        </Collapse.Panel>
+                        <Collapse.Panel className='centerText' header='Defenseman' key='4'>
+                            <Row justify='center' gutter={[16, 16]}>
+                            {
+                                defence.map((player, idx) => {
+                                    return (
+                                        <Col key={idx} span={8}>
+                                            <Button onClick={() => handlePlayer(player)} block>{player.person.fullName}</Button>
+                                        </Col>
+                                    )
+                                })
+                            }
+                            </Row>
+                        </Collapse.Panel>
+                        <Collapse.Panel className='centerText' header='Goalie' key='5'>
+                            <Row justify='center' gutter={[16, 16]}>
+                            {
+                                goalies.map((player, idx) => {
+                                    return (
+                                        <Col key={idx} span={8}>
+                                            <Button onClick={() => handlePlayer(player)} block>{player.person.fullName}</Button>
+                                        </Col>
+                                    )
+                                })
+                            }
+                            </Row>
+                        </Collapse.Panel>
+                    </Collapse>
                 </Col>
-                <Col span={6}>
-                    <Alert className='centerText' message='Goalie' type='info' />
-                    <Row justify='center' gutter={[16, 16]}>
-                    {
-                        goalies.map((player, idx) => {
-                            return (
-                                <Col key={idx} span={12}>
-                                    <Button onClick={() => handlePlayer(player)} block>{player.person.fullName}</Button>
-                                </Col>
-                            )
-                        })
-                    }
+                <Col span={11}>
+                    <Row gutter={[16, 16]} justify='space-around'>
+                        <Col>
+                            <h3>Wins</h3>
+                            <h2>{teamRanks.wins} - {teamStats.wins}</h2>
+                        </Col>
+                        <Col>
+                            <h3>Losses</h3>
+                            <h2>{teamRanks.losses} - {teamStats.losses}</h2>
+                        </Col>
+                        <Col>
+                            <h3>Points</h3>
+                            <h2>{teamRanks.pts} - {teamStats.pts}</h2>
+                        </Col>
+                        <Col>
+                            <h3>Faceoff Wins %</h3>
+                            <h2>{teamRanks.faceOffWinPercentage} - {teamStats.faceOffWinPercentage}</h2>
+                        </Col>
+                        <Col>
+                            <h3>Shots Allowed</h3>
+                            <h2>{teamRanks.shotsAllowed} - {teamStats.shotsAllowed}</h2>
+                        </Col>
+                        <Col>
+                            <h3>Shots Per Game</h3>
+                            <h2>{teamRanks.shotsPerGame} - {teamStats.shotsPerGame}</h2>
+                        </Col>
                     </Row>
                 </Col>
             </Row>
