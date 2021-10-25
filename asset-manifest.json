@@ -1,26 +1,24 @@
 {
   "files": {
-    "main.css": "/nhl-stats/static/css/main.2ad25f70.chunk.css",
-    "main.js": "/nhl-stats/static/js/main.b3e9a0a5.chunk.js",
-    "main.js.map": "/nhl-stats/static/js/main.b3e9a0a5.chunk.js.map",
-    "runtime-main.js": "/nhl-stats/static/js/runtime-main.e0804171.js",
-    "runtime-main.js.map": "/nhl-stats/static/js/runtime-main.e0804171.js.map",
-    "static/css/2.00a338ba.chunk.css": "/nhl-stats/static/css/2.00a338ba.chunk.css",
-    "static/js/2.697b7646.chunk.js": "/nhl-stats/static/js/2.697b7646.chunk.js",
-    "static/js/2.697b7646.chunk.js.map": "/nhl-stats/static/js/2.697b7646.chunk.js.map",
+    "main.css": "/nhl-stats/static/css/main.eb737509.chunk.css",
+    "main.js": "/nhl-stats/static/js/main.498b5a1f.chunk.js",
+    "main.js.map": "/nhl-stats/static/js/main.498b5a1f.chunk.js.map",
+    "runtime-main.js": "/nhl-stats/static/js/runtime-main.d415377f.js",
+    "runtime-main.js.map": "/nhl-stats/static/js/runtime-main.d415377f.js.map",
+    "static/css/2.a95be28f.chunk.css": "/nhl-stats/static/css/2.a95be28f.chunk.css",
+    "static/js/2.1da3b5c3.chunk.js": "/nhl-stats/static/js/2.1da3b5c3.chunk.js",
+    "static/js/2.1da3b5c3.chunk.js.map": "/nhl-stats/static/js/2.1da3b5c3.chunk.js.map",
     "index.html": "/nhl-stats/index.html",
-    "precache-manifest.81a93742441567734e8212522b825dba.js": "/nhl-stats/precache-manifest.81a93742441567734e8212522b825dba.js",
-    "service-worker.js": "/nhl-stats/service-worker.js",
-    "static/css/2.00a338ba.chunk.css.map": "/nhl-stats/static/css/2.00a338ba.chunk.css.map",
-    "static/css/main.2ad25f70.chunk.css.map": "/nhl-stats/static/css/main.2ad25f70.chunk.css.map",
-    "static/js/2.697b7646.chunk.js.LICENSE.txt": "/nhl-stats/static/js/2.697b7646.chunk.js.LICENSE.txt",
-    "static/media/index.css": "/nhl-stats/static/media/ice.5f73e9ae.svg"
+    "static/css/2.a95be28f.chunk.css.map": "/nhl-stats/static/css/2.a95be28f.chunk.css.map",
+    "static/css/main.eb737509.chunk.css.map": "/nhl-stats/static/css/main.eb737509.chunk.css.map",
+    "static/js/2.1da3b5c3.chunk.js.LICENSE.txt": "/nhl-stats/static/js/2.1da3b5c3.chunk.js.LICENSE.txt",
+    "static/media/index.css": "/nhl-stats/static/media/ice.69e9e223.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.e0804171.js",
-    "static/css/2.00a338ba.chunk.css",
-    "static/js/2.697b7646.chunk.js",
-    "static/css/main.2ad25f70.chunk.css",
-    "static/js/main.b3e9a0a5.chunk.js"
+    "static/js/runtime-main.d415377f.js",
+    "static/css/2.a95be28f.chunk.css",
+    "static/js/2.1da3b5c3.chunk.js",
+    "static/css/main.eb737509.chunk.css",
+    "static/js/main.498b5a1f.chunk.js"
   ]
 }
