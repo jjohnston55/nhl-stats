@@ -8,44 +8,44 @@ import * as viewActions from "../../../actions/viewActions";
 
 import NHL from "../../../api";
 
-const Home = (props) => {
+const Home = () => {
 	const dispatch = useDispatch();
-	const cancelToken = axios.CancelToken.source();
 
-	const api = new NHL();
-	const [northTeams, setNorthTeams] = useState([]);
-	const [westTeams, setWestTeams] = useState([]);
+	const [pacificTeams, setPacificTeams] = useState([]);
 	const [centralTeams, setCentralTeams] = useState([]);
-	const [eastTeams, setEastTeams] = useState([]);
+	const [metroTeams, setMetroTeams] = useState([]);
+	const [atlanticTeams, setAtlanticTeams] = useState([]);
 
 	useEffect(() => {
+		const api = new NHL();
+		const cancelToken = axios.CancelToken.source();
 		api.GetTeams(cancelToken.token).then((data) => {
-			const nTeams = [];
-			const wTeams = [];
+			const pTeams = [];
 			const cTeams = [];
-			const eTeams = [];
+			const mTeams = [];
+			const aTeams = [];
 			data.forEach((team) => {
 				switch (team.division.id) {
-					case 28:
-						nTeams.push(team);
+					case 15:
+						pTeams.push(team);
 						break;
-					case 27:
-						wTeams.push(team);
-						break;
-					case 26:
+					case 16:
 						cTeams.push(team);
 						break;
-					case 25:
-						eTeams.push(team);
+					case 18:
+						mTeams.push(team);
+						break;
+					case 17:
+						aTeams.push(team);
 						break;
 					default:
 						break;
 				}
 			});
-			setNorthTeams(nTeams);
-			setWestTeams(wTeams);
+			setPacificTeams(pTeams);
 			setCentralTeams(cTeams);
-			setEastTeams(eTeams);
+			setMetroTeams(mTeams);
+			setAtlanticTeams(aTeams);
 		});
 		return () => {
 			cancelToken.cancel();
@@ -62,54 +62,21 @@ const Home = (props) => {
 			<BrowserView>
 				<Row gutter={[16, 16]}>
 					<Col span={6}>
-						<Alert
-							className="centerText"
-							message="North"
-							type="info"
-						/>
+						<Alert className="centerText" message="Pacific" type="info" />
 					</Col>
 					<Col span={6}>
-						<Alert
-							className="centerText"
-							message="West"
-							type="info"
-						/>
+						<Alert className="centerText" message="Central" type="info" />
 					</Col>
 					<Col span={6}>
-						<Alert
-							className="centerText"
-							message="Central"
-							type="info"
-						/>
+						<Alert className="centerText" message="Metropolitan" type="info" />
 					</Col>
 					<Col span={6}>
-						<Alert
-							className="centerText"
-							message="East"
-							type="info"
-						/>
+						<Alert className="centerText" message="Atlantic" type="info" />
 					</Col>
 				</Row>
 				<Row gutter={[16, 16]}>
 					<Col span={6}>
-						{northTeams.map((team, idx) => {
-							return (
-								<Row key={idx} gutter={[16, 16]}>
-									<Col span={24}>
-										<Button
-											onClick={() => handleTeam(team)}
-											type="primary"
-											size="large"
-											block>
-											{team.name}
-										</Button>
-									</Col>
-								</Row>
-							);
-						})}
-					</Col>
-					<Col span={6}>
-						{westTeams.map((team, idx) => {
+						{pacificTeams.map((team, idx) => {
 							return (
 								<Row key={idx} gutter={[16, 16]}>
 									<Col span={24}>
@@ -143,7 +110,24 @@ const Home = (props) => {
 						})}
 					</Col>
 					<Col span={6}>
-						{eastTeams.map((team, idx) => {
+						{metroTeams.map((team, idx) => {
+							return (
+								<Row key={idx} gutter={[16, 16]}>
+									<Col span={24}>
+										<Button
+											onClick={() => handleTeam(team)}
+											type="primary"
+											size="large"
+											block>
+											{team.name}
+										</Button>
+									</Col>
+								</Row>
+							);
+						})}
+					</Col>
+					<Col span={6}>
+						{atlanticTeams.map((team, idx) => {
 							return (
 								<Row key={idx} gutter={[16, 16]}>
 									<Col span={24}>
@@ -164,24 +148,16 @@ const Home = (props) => {
 			<MobileView>
 				<Row gutter={[8, 8]}>
 					<Col span={12}>
-						<Alert
-							className="centerText"
-							message="Western Conference"
-							type="info"
-						/>
+						<Alert className="centerText" message="Western Conference" type="info" />
 					</Col>
 					<Col span={12}>
-						<Alert
-							className="centerText"
-							message="Eastern Conference"
-							type="info"
-						/>
+						<Alert className="centerText" message="Eastern Conference" type="info" />
 					</Col>
 				</Row>
 				<Tabs centered defaultActiveKey={1} type="card">
 					<Tabs.TabPane tab="Pacific" key="1">
 						<Row gutter={[8, 8]} justify="center">
-							{northTeams.map((team, idx) => {
+							{pacificTeams.map((team, idx) => {
 								return (
 									<Col key={idx} span={16}>
 										<Button
@@ -198,7 +174,7 @@ const Home = (props) => {
 					</Tabs.TabPane>
 					<Tabs.TabPane tab="Central" key="2">
 						<Row gutter={[8, 8]} justify="center">
-							{westTeams.map((team, idx) => {
+							{centralTeams.map((team, idx) => {
 								return (
 									<Col key={idx} span={16}>
 										<Button
@@ -215,7 +191,7 @@ const Home = (props) => {
 					</Tabs.TabPane>
 					<Tabs.TabPane tab="Metropolitan" key="3">
 						<Row gutter={[8, 8]} justify="center">
-							{centralTeams.map((team, idx) => {
+							{metroTeams.map((team, idx) => {
 								return (
 									<Col key={idx} span={16}>
 										<Button
@@ -232,7 +208,7 @@ const Home = (props) => {
 					</Tabs.TabPane>
 					<Tabs.TabPane tab="Atlantic" key="4">
 						<Row gutter={[8, 8]} justify="center">
-							{eastTeams.map((team, idx) => {
+							{atlanticTeams.map((team, idx) => {
 								return (
 									<Col key={idx} span={16}>
 										<Button

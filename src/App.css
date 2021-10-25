@@ -1,33 +1,33 @@
 .page {
-    padding: 100px;
-    height: 100vh;
-    background-color: rgba(255, 255, 255, 0.8) ;
+	padding: 100px;
+	height: 100vh;
+	background-color: rgba(255, 255, 255, 0.8);
 }
 
 .page-mobile {
-    min-height: 100vh;
-    background-color: rgba(219, 219, 219, 0.8);
+	min-height: 100vh;
+	background-color: rgba(219, 219, 219, 0.8);
 }
 
 .backButtonRow {
-    height: 48px;
+	height: 48px;
 }
 
 .content {
-    border: 2px solid black;
-    border-radius: 5px;
-    padding: 50px;
-    background-color: rgba(164, 189, 199, 0.5);
+	border: 2px solid black;
+	border-radius: 5px;
+	padding: 50px;
+	background-color: rgba(164, 189, 199, 0.5);
 }
 
 .content-mobile > div {
-    margin: 0 auto;
+	margin: 0 auto;
 }
 
 .centerText {
-    text-align: center;
+	text-align: center;
 }
 
 table {
-    background-color: rgb(233, 233, 233);
+	background-color: rgb(233, 233, 233);
 }
